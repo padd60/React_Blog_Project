@@ -22,6 +22,8 @@ function App() {
 
   let [pushTitle, pushTitleChange] = useState(0);
 
+  let [inputValue, inputValueChange] = useState("");
+
   let posts = "강남 고기 맛집";
 
   // function changeTitle() {
@@ -40,6 +42,15 @@ function App() {
     likeChange(newLike);
   }
 
+  function addTitle() {
+    let newTitle = [...title];
+    let newLike = [...like];
+    newTitle.unshift(inputValue);
+    newLike.push(0);
+    titleChange(newTitle);
+    likeChange(newLike);
+  }
+
   return (
     <div className="App">
       <div className="black-nav">
@@ -50,7 +61,7 @@ function App() {
         //반복문 사용하기 : for은 사용 못함
         title.map((item, index) => {
           return (
-            <div className="list">
+            <div className="list" key={index}>
               <h3
                 onClick={() => {
                   pushTitleChange(index);
@@ -66,6 +77,27 @@ function App() {
           );
         })
       }
+
+      {/* <input
+        onChange={() => {
+          inputValueChange(e.target.value);
+        }}
+      /> */}
+
+      <div className="publish">
+        <input
+          onChange={(e) => {
+            inputValueChange(e.target.value);
+          }}
+        />
+        <button
+          onClick={() => {
+            addTitle();
+          }}
+        >
+          저장
+        </button>
+      </div>
 
       <button
         onClick={() => {
